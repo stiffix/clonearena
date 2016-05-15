@@ -1,0 +1,254 @@
+@import url(https://fonts.googleapis.com/css?family=Exo+2:400,200,300,500);
+@import url(https://fonts.googleapis.com/css?family=Swanky+and+Moo+Moo);
+.jumbotron {
+    background-color: #09161f;
+    min-height: 300px;
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-position-y: -246px;
+    text-align: right;
+    color: #C4E4E3;
+    font-family: 'Exo 2', sans-serif;
+    background-position-x: 20%;
+}
+
+.jumbotron h1 {
+    font-weight: 400;
+}
+
+.jumbotron p {
+    font-weight: 100;
+}
+
+.jumbotron p.join a {
+    font-family: 'Swanky and Moo Moo', cursive;
+    color: #E81B46;
+    font-size: 40px;
+    margin-top: -20px;
+    display: block;
+}
+
+.btn-clone-dark-side {
+    color: #fff;
+    background-color: #E81B46;
+    border-color: #C31439;
+}
+
+.btn-clone-dark-side:hover, .btn-clone-light-side:hover {
+    color: #fff;
+}
+
+.btn-clone-dark-side:hover {
+    background-color: #FD3D65;
+}
+
+a.list-group-item.active:hover, .btn-clone-light-side:hover {
+    background-color: #73E1E4;
+    border-color: #32B5B9;
+}
+
+a.list-group-item.active, .btn-clone-light-side {
+    color: #fff;
+    background-color: #5EC6C9;
+    border-color: #32B5B9;
+}
+
+.container.content-min-height {
+    box-shadow: 0px 22px 30px 0px rgba(0, 0, 0, 0.07);
+    min-height: 20em;
+    padding-bottom: 3em;
+}
+
+.brand-logo {
+    display: inline-block;
+    float: left;
+}
+
+.navbar-default {
+    border-bottom: 0;
+}
+
+.navbar-default a.navbar-brand {
+    color: #09161F;
+    font-weight: bold;
+}
+
+.container p {
+    font-size: 18px;
+    color: #424242;
+}
+
+.container img {
+    width: 400px;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.container img.shop-item-image {
+    width: 90%;
+}
+
+div.shop-item {
+    text-align: center;
+    align-content: center;
+}
+
+div.shop-item span, div.shop-item input {
+    display: block;
+    width: 90%;
+    height: 40px;
+    margin: 0 auto;
+}
+
+div.shop-item input {
+    width: 60%;
+}
+
+span.shop-item-name {
+    font-weight: bold;
+}
+
+div.shop-item .thumbnail {
+    padding-bottom: 2em;
+}
+
+div.shop-item span.shop-item-price {
+    font-size: 30px;
+    margin-top: -0.5em;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+    color: #790C23;
+    font-weight: 100;
+}
+
+div.shop-item span.shop-item-name {
+    font-weight: 200;
+    font-size: 20px;
+}
+
+div.shop-item .thumbnail{
+    transition: box-shadow 1s;
+}
+
+div.shop-item .thumbnail:hover {
+    box-shadow: 0 0 20px 0px #C7C7C7;
+    transition: box-shadow 1s;
+}
+
+div.content-shop-separator {
+    border-left: 1px solid #EAEAEA;
+}
+
+span#wallet-span {
+    float: right;
+    margin-top: -30px;
+    font-size: 18px;
+}
+
+div#character-info {
+    font-size: 20px;
+}
+
+div#character-info span, div#character-info p {
+    padding-left: 1.5em;
+}
+
+div#character-info span.green-span {
+    color: green;
+    padding-left: 0;
+}
+
+div#character-info span.red-span {
+    color:firebrick;
+    padding-left: 0;
+}
+
+div#character-info span.green-span.padding-info-left {
+    padding-left: 1.5em;
+}
+
+div#character-torso {
+    margin-top: 340px;
+}
+
+div#character-head {
+    position: absolute;
+}
+
+div#character-info h4 {
+    padding-left: 1.5em;
+}
+
+a.remove-item {
+    color: #E81B46;
+    text-decoration: none;
+    display: block;
+    width: auto;
+    position: absolute;
+    right: 0;
+    top: -15px;
+    font-size: 20px;
+    border: 1px solid #E81B46;
+    width: 2em;
+    line-height: 2em;
+    transition: background 0.3s;
+    border-radius: 100%;
+    background-color: white;
+}
+
+a.remove-item:hover {
+    color: white;
+    background-color: #E81B46;
+    transition: background 0.3s;
+}
+
+div.inventory span.shop-item-name {
+    display: none;
+}
+
+div.inventory .thumbnail {
+    padding-top: 0;
+    padding-bottom: 10px;
+}
+
+div#character-weapon {
+    position: absolute;
+    top: 90px;
+    left: -180px;
+}
+
+span.shop-item-price {
+    display: inline-block;
+}
+
+span.glyphicon.glyphicon-pencil {
+    display: inline;
+    font-size: 22px; 
+}
+
+span.shop-item-price a {
+    text-decoration: none;
+    transition: color 0.3s;
+    color: #AFB0B2;
+}
+
+span.shop-item-price a:hover {
+    color: black;
+    transition: color 0.3s;
+}
+
+button.btn.btn-clone-light-side.height-edit-fixed {
+    height: 40px;
+}
+
+form.shop-item-edit-price {
+    margin-bottom: 12px;
+    display: none;
+    padding-left: 1em;
+}
+
+#game_canvas {
+    border: 1px solid red;
+    margin-top: 100px;
+    width: 100%;
+}

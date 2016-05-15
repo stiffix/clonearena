@@ -1,0 +1,41 @@
+<h2>User Management</h2>
+<hr>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>User role</th>
+            <th>Ban status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (typeof users_data != 'undefined') { %>
+            <% users_data.forEach(function(item) { %>
+                <tr>
+                    <td><%= item.id %></td>
+                    <td><%= item.email %></td>
+                    <td>
+                        <% if (item.user_type == 2) { %>
+                            Admin
+                        <% } else { %>
+                            User
+                        <% } %>
+                    </td>
+                    <td>
+                        <% if (item.ban == 0) { %>
+                            Not Blocked
+                        <% } else { %>
+                            Blocked
+                        <% } %>
+                    </td>
+                    <td>
+                        <a href="/user/blockUser?id=<%=item.id%>&blockstate=<%=Math.abs(item.ban-1)%>">Block/Unblock user</a> | 
+                        <a href="/user/removeUser?id=<%=item.id%>">Remove user</a>
+                    </td>
+                </tr>
+            <% }); %>
+        <% } %>
+    </tbody>
+</table>

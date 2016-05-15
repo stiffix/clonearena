@@ -1,0 +1,26 @@
+<h2>TOP 30 PLAYERS</h2>
+<hr>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Player</th>
+            <th>Wins</th>
+            <th>Loss</th>
+            <th>Kills</th>
+            <th>Death</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (typeof highscorelist != 'undefined') { %>
+            <% highscorelist.forEach(function(item) { %>
+                <tr>
+                    <td><%= item.email %></td>
+                    <td><%= item.wins %></td>
+                    <td><%= item.loss %></td>
+                    <td><%= item.kills %></td>
+                    <td><%= item.death %></td>
+                </tr>
+            <% }); %>
+        <% } %>
+    </tbody>
+</table>

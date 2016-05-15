@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-sm-3">
+        <h3>Menu</h3>
+        <hr>
+        <div class="list-group">
+            <a href="/shop/store" class="list-group-item<% if ((typeof page != 'undefined') &&  ('/shop/store' == page )) { %> active<% } %>">Main Store</a>
+            <a href="/shop/customization" class="list-group-item<% if ((typeof page != 'undefined') &&  ('/shop/customization' == page )) { %> active<% } %>">Character customization</a>
+            <% if (req.session.user && (req.session.user.user_type == 2)) { %>
+            <a href="/shop/itemlist" class="list-group-item<% if ((typeof page != 'undefined') &&  ('/shop/itemlist' == page )) { %> active<% } %>"> Add item to shop</a>
+            <% } %>
+        </div>
+    </div>
+    <div class="col-sm-9 content-shop-separator">
+        <h2>Character info &amp; customization</h2>
+        <hr>
+        <% if (req.session.character && (typeof scorelist != 'undefined')) { %>
+        <!-- CHARACTER INFO -->
+        <div id="character-info">
+            <span class="wallet-info"><strong>Wallet: </strong><%= req.session.character.wallet %> COINS</span>
+            <hr>
+            <span class="green-span padding-info-left"><strong>Wins: </strong><%= scorelist.wins %></span> | <span class="red-span"><strong>Loss: </strong><%= scorelist.loss %></span> | <span class="green-span"><strong>Kills: </strong><%= scorelist.kills %></span> | <span class="red-span"><strong>Deaths: </strong><%= scorelist.death %></span>
+            <hr>
+            <!-- Inventory -->
+            <h4>Inventory:</h4>
+            <% if (typeof weaponitemlist != 'undefined') { %>
+
+                <div class="row inventory">
+                    <%  var idxrow = 0;
+                        var selected_character_weapon = '';
+                        weaponitemlist.forEach(function(item) { %>
+                    <% if (item.id == req.session.character.weapon_item) { 
+                                selected_character_weapon = item.img;
+                           }      
+                     %>
+
+                    <div class="shop-item col-xs-2 col-sm-2 col-md-2">
+                        <div class="thumbnail">
+                            <img class="shop-item-image" src="<%= item.img %>" />
+                            <div class="shop-item-desc">
+                                <span class="shop-item-name"><%= item.name %></span>
+                                <form action="/characters/equipItem">
+                                    <input type="hidden" name="itemtype" value="<%= item.type %>" />
+                                    <input type="hidden" name="invid" value="<%= item.id %>" />
+                                    <input class="btn btn-clone-dark-side" type="submit" value="Equip" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <% 
+                        idxrow++;
+                        if ((idxrow % 6) == 0) { %>
+                        </div><div class="row">
+                    <% }}); %>
+                </div>
+            <% if (idxrow == 0) { %>
+            <p>No items in inventory!</p>
+            <hr>
+            <%} } else { %>
+            <p>No items in inventory!</p>
+            <hr>
+            <% } %>
+            <!-- END OF Inventory -->
+            <div class="row">
+                <div class="col-xs-3"></div>
+                <div id="character-body" class="col-xs-8">
+                    <div id="character-head">
+                        <% if (req.session.character.body_item != undefined) { %>
+                            <%= req.session.character.body_item %>
+                        <% } else { %>
+                            <img src="/images/items/body/head/head_default_0.png"/>
+                        <% } %>
+                    </div>
+                    <div id="character-torso">
+                        <img src="/images/items/body/body_default_0.png"/>
+                    </div>
+                    <div id="character-weapon">
+                        <% if (selected_character_weapon != '') { %>
+                            <img src="<%= selected_character_weapon %>" />
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-xs-1"></div>
+            </div>
+        </div>
+        <% } %>
+        <!-- // END CHARACTER INFO -->
+        
+        
+    </div>
+</div>

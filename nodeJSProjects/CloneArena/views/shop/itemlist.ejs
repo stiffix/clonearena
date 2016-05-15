@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-sm-3">
+        <h3>Menu</h3>
+        <hr>
+        <div class="list-group">
+            <a href="/shop/store" class="list-group-item<% if ((typeof page != 'undefined') &&  ('/shop/store' == page )) { %> active<% } %>">Main Store</a>
+            <a href="/shop/customization" class="list-group-item">Character customization</a>
+            <% if (req.session.user && (req.session.user.user_type == 2)) { %>
+            <a href="/shop/itemlist" class="list-group-item<% if ((typeof page != 'undefined') &&  ('/shop/itemlist' == page )) { %> active<% } %>"> Add item to shop</a>
+            <% } %>
+        </div>
+    </div>
+    <div class="col-sm-9 content-shop-separator">
+        
+        <% if (typeof shopitemlist != 'undefined') { %>
+            <h3>Add items to shop</h3>
+            <hr>
+            <div class="row">
+                <%  var idxrow = 0;
+                    shopitemlist.forEach(function(item) { %>
+                <div class="shop-item col-xs-12 col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img class="shop-item-image" src="<%= item.img %>" />
+                        <div class="shop-item-desc">
+                            <span class="shop-item-name"><%= item.name %></span>
+                            <span class="shop-item-price"><%= item.price %> coins </span>
+                            <form action="/shop/addItem">
+                                <input type="hidden" name="itemid" value="<%=item.id%>" />
+                                <input class="btn btn-clone-light-side" type="submit" value="Add to shop" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <% 
+                    idxrow++;
+                    if ((idxrow % 3) == 0) { %>
+                    </div><div class="row">
+                <% }}); %>
+            </div>
+            
+        <% } else { %>
+        <p>itemlist is undefined</p>
+        <% } %>
+    </div>
+</div>

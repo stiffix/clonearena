@@ -1,0 +1,21 @@
+
+
+<h2>Sign up</h2>
+<hr>
+<form id="signup-form" name="signup-form" action="/user/create">
+    <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" placeholder="E-mail" name="email" id="email" aria-describedby="basic-addon1" value="<% if (req.session.saved_email) { %><%= req.session.saved_email %><% } %>" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input id="password" type="password" class="form-control" placeholder="Password" name="password" aria-describedby="basic-addon1" pattern=".{3,}" required>
+    </div>
+    <div class="form-group">
+        <label for="confirmpassword">Confirm password:</label>
+        <input id="confirmpassword" type="password" class="form-control" placeholder="Confirm password" name="confirmpassword" aria-describedby="basic-addon1" pattern=".{3,}" required >
+    </div>
+    
+    
+    <input type="submit" value="Sign Up!" class="btn btn-clone-dark-side"/>
+</form>

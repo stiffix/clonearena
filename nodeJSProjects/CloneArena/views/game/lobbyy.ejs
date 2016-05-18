@@ -1,0 +1,85 @@
+<!-- Simply include the sails.io.js script, and a client socket will be created for you -->
+<script type"text/javascript" src="/js/dependencies/sails.io.js" autoConnect="false"></script>
+<!-- <canvas id="game_canvas" width="800px" height="600px"></canvas> -->
+<h1>&nbsp;</h1>
+<input id="joinBtn" class="btn btn-clone-dark-side" type="submit" value="JOIN!" />
+<input id="sendBtn" class="btn btn-clone-light-side" type="submit" value="JOIN!" />
+
+<script type"text/javascript">
+    var mySocket = io.sails.connect();
+    mySocket.on('connect', function onConnect () {
+        console.log("Socket connected!");
+        mySocket.on('example', function (data) {
+            console.log('Socket `' + 'x' + '` joined the party!');
+        });
+        
+        //$('#joinBtn').click(function() {
+            mySocket.get("/game/join", function(body, response){
+              console.log("CALLBACK");
+            });
+        //});
+        
+        //$('#sendBtn').click(function() {
+            mySocket.get("/game/sendMessage", function(body, response){
+              console.log("CALLBACK");
+            });
+        //});
+    });
+    
+    
+    /*
+    io.socket.on('connect', function socketConnected() {
+        
+    
+    //var mySocket = io.sails.connect();
+        
+        io.socket.on('joined', function joinedParty (data) {
+          console.log('Socket `' + 'x' + '` joined the party!');
+        });
+        
+        $('#joinBtn').click(function() {
+            io.socket.get("/game/join", function(data){
+              console.log("CALLBACK");
+            });
+        });
+        
+        io.socket.on('message', function (data) {
+            console.log('MESSAGE:' + data);
+        });
+
+        io.socket.on('disconnect', function() {
+          console.log("Disconnected");
+        });
+        
+        console.log('connected');
+        
+        
+    });
+    
+    */
+    
+    
+    function addServer(lobby) {
+      // Get a handle to the room list <select> element
+      var select = $('#server-list');
+
+      // Create a new <option> for the <select> with the new room's information
+      //var users = room.users || [];
+      //var numUsers = users.length;
+      var option = $('<option id="'+"lobby-"+lobby.id+'" data-name="'+lobby.name+'" value="'+lobby.id+'">'+lobby.name+'</option>');
+
+      // Add the new <option> element
+      select.append(option);
+    }
+    
+    
+    // Add multiple rooms to the rooms list.
+    function updateServerList(lobbies) {
+      rooms.forEach(function(lobby) {
+        addRoom(lobby);
+      });
+    }
+    
+    
+</script>
+    

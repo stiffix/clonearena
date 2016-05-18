@@ -1,85 +1,67 @@
-<!-- Simply include the sails.io.js script, and a client socket will be created for you -->
-<script type"text/javascript" src="/js/dependencies/sails.io.js" autoConnect="false"></script>
-<!-- <canvas id="game_canvas" width="800px" height="600px"></canvas> -->
-<h1>&nbsp;</h1>
-<input id="joinBtn" class="btn btn-clone-dark-side" type="submit" value="JOIN!" />
-<input id="sendBtn" class="btn btn-clone-light-side" type="submit" value="JOIN!" />
 
-<script type"text/javascript">
-    var mySocket = io.sails.connect();
-    mySocket.on('connect', function onConnect () {
-        console.log("Socket connected!");
-        mySocket.on('example', function (data) {
-            console.log('Socket `' + 'x' + '` joined the party!');
-        });
-        
-        //$('#joinBtn').click(function() {
-            mySocket.get("/game/join", function(body, response){
-              console.log("CALLBACK");
-            });
-        //});
-        
-        //$('#sendBtn').click(function() {
-            mySocket.get("/game/sendMessage", function(body, response){
-              console.log("CALLBACK");
-            });
-        //});
+<canvas id="gamecanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
+
+<div id="messager"></div>
+<input type="button" id="allplayers" value="Get ALL PLAYERS!"/>
+<br>
+<input type="text" id="messagetxt" />
+<input type="button" id="messagesend" value="SEND"/>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/gameengine-client.js"></script>
+
+<script>
+    
+    //io.sails.autoConnect = false;
+    console.log(io.socket);
+    console.log(GAME);
+    
+    GAME.setPlayerController('<%=req.session.user.email%>');
+   
+    // JOINING BATTLE!!
+    
+    io.socket.get('/socket/join', function(data) {
+        console.log('Joined as ' + data.myId);
+        GAME.setPlayerController(data.myId);
+    });
+    
+    io.socket.on('receiveAllPlayersStats', function(data) {
+        GAME.createAllPlayers(data.players);
+    });
+    
+    io.socket.on('onPlayerUpdate', function(data) {
+        GAME.updatePlayer(data.id, data.stats);
+    });
+    
+    io.socket.on('onAttack', function(data) {
+        GAME.checkAttack(data);
     });
     
     
-    /*
-    io.socket.on('connect', function socketConnected() {
-        
-    
-    //var mySocket = io.sails.connect();
-        
-        io.socket.on('joined', function joinedParty (data) {
-          console.log('Socket `' + 'x' + '` joined the party!');
-        });
-        
-        $('#joinBtn').click(function() {
-            io.socket.get("/game/join", function(data){
-              console.log("CALLBACK");
-            });
-        });
-        
-        io.socket.on('message', function (data) {
-            console.log('MESSAGE:' + data);
-        });
-
-        io.socket.on('disconnect', function() {
-          console.log("Disconnected");
-        });
-        
-        console.log('connected');
-        
-        
-    });
-    
-    */
     
     
-    function addServer(lobby) {
-      // Get a handle to the room list <select> element
-      var select = $('#server-list');
-
-      // Create a new <option> for the <select> with the new room's information
-      //var users = room.users || [];
-      //var numUsers = users.length;
-      var option = $('<option id="'+"lobby-"+lobby.id+'" data-name="'+lobby.name+'" value="'+lobby.id+'">'+lobby.name+'</option>');
-
-      // Add the new <option> element
-      select.append(option);
+    // OTHERS
+    
+    io.socket.on('meeezage', function(msg) {
+        document.getElementById('messager').innerHTML = document.getElementById('messager').innerHTML + msg.message + "<br>";
+        console.log('onMeeezage()');
+    }); 
+    
+    document.getElementById("allplayers").addEventListener("click", getAllPlayersList);
+    document.getElementById("messagesend").addEventListener("click", sendMessage);
+    
+    function sendMessage() {
+        var mm = document.getElementById("messagetxt").value;
+        io.socket.get('/socket/broadcast?message=' + mm, function(data) {
+            console.log(data);
+        });
     }
     
-    
-    // Add multiple rooms to the rooms list.
-    function updateServerList(lobbies) {
-      rooms.forEach(function(lobby) {
-        addRoom(lobby);
-      });
+    function getAllPlayersList() {
+        io.socket.get('/socket/subscribers', function(data) {
+            console.log(data);
+        });
+        //document.getElementById('messager').innerHTML = msg.message;
     }
-    
     
 </script>
-    

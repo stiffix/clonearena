@@ -91,7 +91,20 @@ module.exports = {
                     if (err) return next(err);
                     if (chrctr) {
                         req.session.character = chrctr;
-                        return res.redirect('/');
+                        Item.query("SELECT Item.id, Item.name FROM Item INNER JOIN Inventory ON Inventory.item_id = Item.id INNER JOIN Characters ON Characters.weapon_item = Inventory.id AND Characters.id = " + req.session.user.character_id + " WHERE Characters.weapon_item = " + req.session.character.weapon_item, function(err, weapon) {
+                                if (err) return next(err);
+                                console.log("...............__:_:_:_:::::.....");
+                                console.log(weapon[0]);
+                                if (weapon[0] !== undefined) {
+                                    req.session.equipped = weapon[0].id;
+                                    console.log(req.session);
+                                    return res.redirect('/');
+                                } else {
+                                    return res.redirect('/');
+                                }
+                                
+                            });
+                        
                     }
                 });
             } else {
